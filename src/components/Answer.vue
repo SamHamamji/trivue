@@ -15,12 +15,10 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="alert shadow-lg w-full" :class="`alert-${props.answerType}`">
-    <div class="w-full flex justify-between">
-      <span>{{ answer }}</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="alerts[answerType]" />
-      </svg>
-    </div>
+  <div class="alert shadow-lg w-full justify-between" :class="`alert-${props.answerType}`">
+    <span>{{ answer }}</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="alerts[answerType]" />
+    </svg>
   </div>
 </template>

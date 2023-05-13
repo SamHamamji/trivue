@@ -1,8 +1,21 @@
-interface Question {
+type APIQuestion = {
     category: Category;
     id: string;
     correctAnswer: string;
     incorrectAnswers: string[];
+    question: { text: string };
+    tags: string[];
+    type: Type;
+    difficulty: Difficulty;
+    regions: string[];
+    isNiche: boolean;
+}
+
+type Question = {
+    category: Category;
+    id: string;
+    correctIndex: number;
+    answers: string[];
     question: { text: string };
     tags: string[];
     type: Type;
@@ -34,4 +47,4 @@ enum Type {
     TextChoice = "text_choice",
 }
 
-export default Question;
+export type { APIQuestion, Question };

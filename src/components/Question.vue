@@ -4,14 +4,11 @@ import { ref } from "vue";
 
 const quizStore = useQuizStore();
 
-const selectedAnswer = ref<string>();
+const selectedIndex = ref<number>();
 
 function submitAnswer() {
-  if (quizStore.checkCurrentAnswer(selectedAnswer.value!)) {
-    console.log("Right answer");
-  } else {
-    console.log("Wrong answer");
-  }
+  quizStore.selectedIndex = selectedIndex.value!
+  console.log(`${quizStore.checkAnswer() ? "Right" : "Wrong"} answer`);
   quizStore.nextQuestion();
 }
 </script>
@@ -22,12 +19,12 @@ function submitAnswer() {
       <h2 class="card-title mb-2">{{ quizStore.currentQuestion.question.text }}</h2>
       <div class="flex flex-col gap-2">
         <div v-for="(answer, index) in quizStore.currentAnswers" :key="index" class="flex gap-2">
-          <input type="radio" name="answer" :id="`radio-${index}`" class="radio radio-primary" :value="answer" v-model="selectedAnswer" />
+          <input type="radio" name="answer" :id="`radio-${index}`" class="radio radio-primary" :value="index" v-model="selectedIndex" />
           <label :for="`radio-${index}`">{{ answer }}</label>
         </div>
       </div>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary" :class="selectedAnswer === undefined ? 'btn-disabled' : ''" @click="submitAnswer">Submit</button>
+        <button class="btn btn-primary" :class="selectedIndex === undefined ? 'btn-disabled' : ''" @click="submitAnswer">Submit</button>
       </div>
     </div>
   </div>

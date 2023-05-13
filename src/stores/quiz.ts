@@ -41,9 +41,13 @@ export const useQuizStore = defineStore('tasks', () => {
         quiz.value = [];
         quiz.value = await getQuestions(length);
         currentQuestionIndex.value = 0;
+        selectedIndex.value = null;
     }
 
-    const nextQuestion = () => { currentQuestionIndex.value++ };
+    const nextQuestion = () => {
+        currentQuestionIndex.value++;
+        selectedIndex.value = null;
+    };
     const checkAnswer = () => selectedIndex.value === currentQuestion.value?.correctIndex;
 
     return {

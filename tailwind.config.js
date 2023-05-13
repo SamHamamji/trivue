@@ -13,5 +13,10 @@ module.exports = {
     theme: "winter",
     darkTheme: "night"
   },
+  safelist: [
+    'alert-info',
+    'alert-error',
+    'alert-success',
+  ]
 }
 

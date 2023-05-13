@@ -1,21 +1,13 @@
 <script setup lang="ts">
 import { useQuizStore } from '@/stores/quiz';
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 const quizStore = useQuizStore();
-
-const currentAnswers = computed(
-  () => (quizStore.currentQuestion)
-    ? [
-      quizStore.currentQuestion.correctAnswer,
-      ...quizStore.currentQuestion.incorrectAnswers,
-    ].sort(() => Math.random() - 0.5) : null
-);
 
 const selectedAnswer = ref<string>();
 
 function submitAnswer() {
-  if (selectedAnswer.value === quizStore.currentQuestion?.correctAnswer) {
+  if (quizStore.checkCurrentAnswer(selectedAnswer.value!)) {
     console.log("Right answer");
   } else {
     console.log("Wrong answer");
@@ -29,11 +21,9 @@ function submitAnswer() {
     <div class="card-body">
       <h2 class="card-title mb-2">{{ quizStore.currentQuestion.question.text }}</h2>
       <div class="flex flex-col gap-2">
-        <div v-for="(answer, index) in currentAnswers" :key="index" class="flex gap-2">
+        <div v-for="(answer, index) in quizStore.currentAnswers" :key="index" class="flex gap-2">
           <input type="radio" name="answer" :id="`radio-${index}`" class="radio radio-primary" :value="answer" v-model="selectedAnswer" />
-          <label :for="`radio-${index}`">
-            {{ answer }}
-          </label>
+          <label :for="`radio-${index}`">{{ answer }}</label>
         </div>
       </div>
       <div class="card-actions justify-end">

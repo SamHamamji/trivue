@@ -37,12 +37,16 @@ export const useQuizStore = defineStore('tasks', () => {
     const currentAnswers = computed(() => currentQuestion.value?.answers ?? null);
     const selectedIndex = ref<number | null>(null);
 
+    const isDone = computed(
+        () => currentQuestionIndex.value >= quiz.value.length
+    );
+
     const requestQuiz = async (length: number) => {
         quiz.value = [];
         quiz.value = await getQuestions(length);
         currentQuestionIndex.value = 0;
         selectedIndex.value = null;
-    }
+    };
 
     const nextQuestion = () => {
         currentQuestionIndex.value++;
@@ -56,6 +60,7 @@ export const useQuizStore = defineStore('tasks', () => {
         currentAnswers,
         currentQuestionIndex,
         currentQuestion,
+        isDone,
         nextQuestion,
         requestQuiz,
         selectedIndex,

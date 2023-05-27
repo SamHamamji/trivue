@@ -49,5 +49,6 @@ function answerStatus(answerIndex: number): AnswerType {
       </div>
     </div>
   </div>
+  <div v-else-if="quizStore.isDone">No more questions</div>
   <LoadingIcon v-else />
 </template>
